@@ -1,6 +1,6 @@
 import React from 'react'
 import { MdConnectWithoutContact } from 'react-icons/md'
-import Input from '../components/Input'
+import Input from '../components/form/Input'
 
 const Login = () => {
   return (

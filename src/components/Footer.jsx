@@ -9,19 +9,19 @@ const Footer = () => {
     <div className="footerContainer">
       <div className="footerWrapper">
         <button>
-          <IoHome />
+          <IoHome /> <span>Home</span>
         </button>
         <button>
-          <FaUser />
+          <FaUser /> <span>Profile</span>
         </button>
         <button>
-          <FaGear />
+          <FaGear /> <span>Settings</span>
         </button>
         <button>
-          <MdSupportAgent />
+          <MdSupportAgent /> <span>Contact us</span>
         </button>
         <button>
-          <FaCircleQuestion />
+          <FaCircleQuestion /> <span>About us</span>
         </button>
       </div>
     </div>
