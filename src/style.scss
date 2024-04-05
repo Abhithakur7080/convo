@@ -1,0 +1,295 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+//header css
+.header {
+  width: 100vw;
+  height: 50px;
+  background: #0f1035;
+  box-shadow: rgba(255, 255, 255) 0px 5px 15px;
+  .headerWrapper {
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    h1 {
+      font-size: 25px;
+      color: #fff;
+      span {
+        color: #0cb20c;
+      }
+    }
+  }
+}
+//input css
+.input-container {
+  position: relative;
+  border: 2px solid #0f1035;
+  border-radius: 5px;
+  padding: 5px;
+  &.error {
+    border-color: #e53e3e;
+  }
+  label {
+    position: absolute;
+    transition: all 0.4s;
+    &.active {
+      top: -1px;
+      left: 8px;
+      padding: 0 5px;
+      transform: translateY(-50%);
+      font-size: 10px;
+      background-color: #7fc7d9;
+    }
+  }
+  input {
+    width: 100%;
+    border: none;
+    outline: none;
+    padding-left: 0.5rem;
+    background: transparent;
+    &.password {
+      padding-right: 2.5rem;
+    }
+  }
+  .toggle-password {
+    position: absolute;
+    top: 50%;
+    right: 0.75rem;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #0f1035;
+    &:hover {
+      color: #0f1035;
+    }
+  }
+}
+
+.error-message {
+  color: #e53e3e;
+  margin-top: 0.25rem;
+  font-size: 0.75rem;
+}
+
+.formContainer {
+  width: 100%;
+  height: 100%;
+  background-color: #dcf2f1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .formWrapper {
+    min-width: 300px;
+    max-width: 500px;
+    background-color: #0f1035;
+    border-radius: 10px;
+    overflow: hidden;
+    h1 {
+      font-size: 20px;
+      color: #fff;
+      text-align: center;
+      width: 100%;
+      padding: 10px;
+      span {
+        color: #0cb20c;
+      }
+    }
+    .title {
+      background-color: #365486;
+      width: 100%;
+      padding: 5px;
+      font-size: 15px;
+      text-align: center;
+      color: #fff;
+    }
+    .inputForm {
+      padding: 10px 20px;
+      background-color: #7fc7d9;
+      form {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 10px;
+        .fileUpload {
+          width: 100%;
+          height: 80px;
+          border: 3px dashed #0f1035;
+          border-radius: 10px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          div {
+            width: 50px;
+            height: 50px;
+            border: 2px solid #0f1035;
+            padding: 2px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 30px;
+            color: #0f1035;
+          }
+        }
+        button {
+          width: 80px;
+          padding: 5px 10px;
+          font-size: 15px;
+          background-color: #0f1035;
+          color: #fff;
+          border: none;
+          outline: none;
+          border-radius: 10px;
+          align-self: center;
+          margin-bottom: 20px;
+        }
+      }
+      p {
+        margin-bottom: 10px;
+      }
+    }
+  }
+}
+
+.container {
+  background-color: #dcf2f1;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  .sidebar {
+    flex: 1;
+    // border-right: 1px solid #365486;
+    .navbar {
+      display: flex;
+      align-items: center;
+      height: 50px;
+      padding: 10px;
+      justify-content: space-between;
+      background-color: #365486;
+      .user {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: white;
+        img {
+          background-color: #dcf2f1;
+          height: 30px;
+          width: 30px;
+          border: 2px double #0cb20c;
+          padding: 4px;
+          border-radius: 50%;
+          object-fit: cover;
+        }
+        button {
+          background-color: #0f1035;
+          color: #fff;
+          font-size: 10px;
+          padding: 5px 15px;
+          border: none;
+          outline: none;
+          border-radius: 5px;
+          margin-left: auto;
+          cursor: pointer;
+        }
+      }
+    }
+    .search {
+      width: 100%;
+      height: calc(100% - 50px);
+      .searchForm {
+        width: 100%;
+        height: 40px;
+        background-color: transparent;
+        input {
+          width: 100%;
+          padding: 10px 20px;
+          background-color: #7fc7d9;
+          border: none;
+          outline: none;
+          border-bottom: 2px solid #365486;
+          color: #365486;
+          font-size: 15px;
+          &::placeholder {
+            color: #365486;
+          }
+        }
+      }
+      .userChat{
+        width: 100%;
+        height: calc(100% - 40px);
+        overflow-y: scroll;
+        scroll-behavior: smooth;
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        &::-webkit-scrollbar{
+            width: 10px;
+        }
+        &::-webkit-scrollbar-thumb{
+            background-color: #7fc7d9;
+            border-radius: 5px;
+        }
+        .user{
+          display: flex;
+          gap: 20px;
+          padding: 5px;
+          border-bottom: 2px solid #365486;
+          img{
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+          }
+          .userChatInfo{
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            span{
+              font-size: 20px;
+              color: #0f1035;
+            }
+            p{
+              color: gray;
+              font-size: 12px;
+            }
+          }
+        }
+      }
+    }
+  }
+  .chat {
+    flex: 2;
+  }
+}
+//footer css
+.footerContainer {
+  width: 100vw;
+  height: 30px;
+  background-color: #dcf2f1;
+  display: flex;
+  justify-content: center;
+  .footerWrapper {
+    min-width: 250px;
+    max-width: 300px;
+    height: 100%;
+    background-color: #0f1035;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 10px 10px 0 0;
+    overflow: hidden;
+    button {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: none;
+      background-color: transparent;
+      cursor: pointer;
+      color: white;
+    }
+  }
+}
