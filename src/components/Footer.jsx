@@ -1,31 +1,48 @@
 import React from "react";
 import { IoHome } from "react-icons/io5";
-import { FaUser } from "react-icons/fa";
+import { FaUser, FaUserLock, FaUserPlus } from "react-icons/fa";
 import { FaGear, FaCircleQuestion } from "react-icons/fa6";
 import { MdSupportAgent } from "react-icons/md";
+import { NavLink } from "react-router-dom";
+import { useAuthContext } from "../config/AuthContext";
 
 const Footer = () => {
+  const user = useAuthContext();
   return (
     <div className="footerContainer">
       <div className="footerWrapper">
-        <button>
+        <NavLink className={"btn"} style={navStyle} to={"/"}>
           <IoHome /> <span>Home</span>
-        </button>
-        <button>
-          <FaUser /> <span>Profile</span>
-        </button>
-        <button>
+        </NavLink>
+        {user ? (
+          <NavLink className={"btn"} style={navStyle} to={"/profile"}>
+            <FaUser /> <span>Profile</span>
+          </NavLink>
+        ) : (
+          <>
+          <NavLink className={"btn"} style={navStyle} to={"/login"}>
+            <FaUserLock /> <span>Login</span>
+          </NavLink>
+          <NavLink className={"btn"} style={navStyle} to={"/register"}>
+          <FaUserPlus /> <span>Register</span>
+        </NavLink>
+        </>
+        )}
+        <NavLink className={"btn"} style={navStyle} to={"/settings"}>
           <FaGear /> <span>Settings</span>
-        </button>
-        <button>
+        </NavLink>
+        <NavLink className={"btn"} style={navStyle} to={"/contact-us"}>
           <MdSupportAgent /> <span>Contact us</span>
-        </button>
-        <button>
+        </NavLink>
+        <NavLink className={"btn"} style={navStyle} to={"/about-us"}>
           <FaCircleQuestion /> <span>About us</span>
-        </button>
+        </NavLink>
       </div>
     </div>
   );
 };
+
+const navStyle = ({ isActive }) =>
+  isActive ? { backgroundColor: "#7fc7d9", color: "#0f1035" } : undefined;
 
 export default Footer;

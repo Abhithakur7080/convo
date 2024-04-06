@@ -8,7 +8,6 @@ import {
   GoogleAuthProvider,
   signInWithRedirect,
   signOut,
-  signInWithPopup,
 } from "firebase/auth";
 import {
   getDatabase,
@@ -29,6 +28,7 @@ import {
   setDoc,
 } from "firebase/firestore";
 import toast from "react-hot-toast";
+
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_APP_API_KEY,
   authDomain: import.meta.env.VITE_APP_AUTH_DOMAIN,
@@ -183,3 +183,7 @@ export const useFirestore = () => {
     getAllDocsFromFirestore,
   };
 };
+
+export const useStorage = () => {
+    
+}
