@@ -9,13 +9,14 @@ const useAuthContext = () => useContext(authContext);
 
 const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-
+  //please install react-router-dom to use navigate (command: npm install react-router-dom)
   const navigate = useNavigate();
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(firebaseAuth, (currentUser) => {
       if (currentUser) {
         setUser(currentUser);
+        console.log(currentUser);
       } else {
         setUser(null);
       }
