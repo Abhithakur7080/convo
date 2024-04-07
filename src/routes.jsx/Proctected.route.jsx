@@ -15,7 +15,9 @@ const ProtectedRoute = ({ children }) => {
         setLoading(false);
       }, 2000);
     } else {
-      setLoading(false);
+      setTimeout(() => {
+        setLoading(false);
+      }, 2000);
     }
   }, [user]);
 

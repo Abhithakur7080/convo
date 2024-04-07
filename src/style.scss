@@ -143,6 +143,10 @@ body{
             font-size: 30px;
             color: #0f1035;
           }
+          img{
+            max-width: 50px;
+            max-height: 50px;
+          }
         }
         button {
           width: 80px;
@@ -187,21 +191,16 @@ body{
         color: white;
         img {
           background-color: #dcf2f1;
-          height: 30px;
-          width: 30px;
+          height: 40px;
+          width: 40px;
           border: 2px double #0cb20c;
           padding: 4px;
           border-radius: 50%;
           object-fit: cover;
         }
-        button {
-          background-color: #0f1035;
+        h5 {
           color: #fff;
-          font-size: 10px;
-          padding: 5px 15px;
-          border: none;
-          outline: none;
-          border-radius: 5px;
+          font-size: 20px;
           margin-left: auto;
           cursor: pointer;
         }

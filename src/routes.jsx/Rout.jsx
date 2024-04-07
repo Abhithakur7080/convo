@@ -14,13 +14,15 @@ const Rout = () => {
     <BrowserRouter>
       <AuthContextProvider>
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/settings" element={<Settings />} />
-          <Route path="/contact-us" element={<Contactus />} />
-          <Route path="/about-us" element={<Aboutus />} />
+          <Route path="/">
+            <Route index element={<Home />} />
+            <Route path="login" element={<Login />} />
+            <Route path="register" element={<Register />} />
+            <Route path="profile" element={<Profile />} />
+            <Route path="settings" element={<Settings />} />
+            <Route path="contact-us" element={<Contactus />} />
+            <Route path="about-us" element={<Aboutus />} />
+          </Route>
         </Routes>
       </AuthContextProvider>
     </BrowserRouter>

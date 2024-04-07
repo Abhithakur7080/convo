@@ -4,6 +4,7 @@ import Input from "../components/form/Input";
 import logo from "../assets/logo.png";
 import { FaUser } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
 import { useAuth } from "../config/Build/authentication";
 import { useStorage } from "../config/Build/storage";
 import { useFirestore } from "../config/Build/firestore";
@@ -17,6 +18,7 @@ const Register = () => {
   });
   const [photoURL, setPhotoURL] = useState("");
   const data = (e) => {
+    console.log(photoURL.name);
     let name = e.target.name;
     let value = e.target.value;
     setUserData({ ...userData, [name]: value });
@@ -40,15 +42,12 @@ const Register = () => {
     auth
       .signupUserWithEmailAndPassword(userData.email, userData.password)
       .then((data) => {
-        if (data.message && data.message.includes("email-already-in-use")) {
-          toast.error("Email already exists! Please login.");
-          return Promise.reject("Email already exists");
-        }
         user = data.user;
         return storage.uploadFile(`users/${user.uid}/${user.email}`, photoURL);
       })
       .then((url) => {
         return auth.updateAuthenticatedUserData({
+          displayName: userData.displayName,
           photoURL: url,
         });
       })
@@ -57,7 +56,11 @@ const Register = () => {
           displayName: user.displayName,
           email: user.email,
           photoURL: user.photoURL,
+          uid: user.uid,
         });
+      })
+      .then(() => {
+        return store.setDataToFirestoreRef("userChats", user.uid, {});
       })
       .then(() => {
         return database.putData(`users/${user.uid}`, {
@@ -70,7 +73,10 @@ const Register = () => {
         clearInputdata(e);
       })
       .catch((error) => {
-        console.log(error);
+        if (error.message && error.message.includes("email-already-in-use")) {
+          toast.error("Email already exists!");
+          return;
+        }
       });
   };
 
@@ -85,9 +91,16 @@ const Register = () => {
           <div className="inputForm">
             <form onSubmit={handleSubmit}>
               <label htmlFor="fileUpload" className="fileUpload">
-                <div>
-                  <FaUser />
-                </div>
+                {photoURL ? (
+                  <img
+                    src={URL.createObjectURL(photoURL)}
+                    alt="userUploadPhoto"
+                  />
+                ) : (
+                  <div>
+                    <FaUser />
+                  </div>
+                )}
               </label>
               <input
                 type="file"
