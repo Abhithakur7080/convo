@@ -1,25 +1,45 @@
-import React from 'react'
-import { FaUserPlus, FaVideo } from 'react-icons/fa'
+import React from "react";
+import { FaUserPlus, FaVideo } from "react-icons/fa";
 import { IoMdMore } from "react-icons/io";
-import Messages from './Messages';
-import Input2 from './Input2';
+import Messages from "./Messages";
+import Input2 from "./Input2";
+import { chatSelector } from "../redux/chatSlice";
+import { useSelector } from "react-redux";
 
 const Chat = () => {
+  const { selectedUser, chatId } = useSelector(chatSelector);
+  
   return (
-    <div className='chat'>
-      <div className="chatInfo">
-        <img src="https://img.freepik.com/free-photo/young-bearded-man-with-striped-shirt_273609-5677.jpg?w=740" alt="" />
-        <span>John</span>
-        <div className="chatIcons">
-          <span><FaVideo/></span>
-          <span><FaUserPlus/></span>
-          <span><IoMdMore/></span>
-        </div>
+    <div className="chat">
+      <div className="chatInfo"> {/* Added className attribute */}
+        {chatId ? (
+          <>
+            <img src={selectedUser.photoURL} alt="" />
+            <span>{selectedUser.displayName}</span>
+            <div className="chatIcons">
+              <span>
+                <FaVideo />
+              </span>
+              <span>
+                <FaUserPlus />
+              </span>
+              <span>
+                <IoMdMore />
+              </span>
+            </div>
+          </>
+        ) : (
+          <h2 style={{textAlign: "center", width: "100%"}}>No Conversation selected</h2>
+        )}
       </div>
-      <Messages/>
-      <Input2/>
+      {chatId && (
+        <>
+          <Messages />
+          <Input2 />
+        </>
+      )}
     </div>
-  )
-}
+  );
+};
 
-export default Chat
+export default Chat;

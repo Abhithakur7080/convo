@@ -57,6 +57,7 @@ const Register = () => {
           email: user.email,
           photoURL: user.photoURL,
           uid: user.uid,
+          lastMessege: ""
         });
       })
       .then(() => {

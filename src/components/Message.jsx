@@ -1,18 +1,21 @@
-import React from 'react'
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { useAuthContext } from "../config/AuthContext";
 
-const Message = ({className}) => {
+const Message = ({ message }) => {
+  const user = useAuthContext();
   return (
-    <div className={`message ${className}`}>
+    <div className={`message ${message.sender === user.uid ? "owner" : ""}`}>
       <div className="messageInfo">
-        <img src="https://img.freepik.com/free-photo/young-bearded-man-with-striped-shirt_273609-5677.jpg?w=740" alt="userImage" />
+        {message.userImg && <img src={message.userImg} alt="userImage" />}
         <span>Just now</span>
       </div>
       <div className="messageContent">
-        <p>Hello</p>
-        <img src="https://img.freepik.com/free-photo/young-bearded-man-with-striped-shirt_273609-5677.jpg?w=740" alt="messageImage" />
+        {message?.text!=="" && <p>{message.text}</p>}
+        {message.img !=="" && <img src={message.img} alt="messageImage" />}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Message
+export default Message;
