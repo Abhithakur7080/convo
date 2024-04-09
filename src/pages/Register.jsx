@@ -38,6 +38,10 @@ const Register = () => {
   const database = useRealtimeDatabase();
   const handleSubmit = (e) => {
     e.preventDefault();
+    if(!userData.email || !userData.password || !userData.displayName || !photoURL){
+      toast.error("please fill all required fields");
+      return;
+    }
     let user;
     auth
       .signupUserWithEmailAndPassword(userData.email, userData.password)
@@ -71,7 +75,8 @@ const Register = () => {
         });
       })
       .then(() => {
-        clearInputdata(e);
+        clearInputdata();
+        toast.success("your are now registered.")
       })
       .catch((error) => {
         if (error.message && error.message.includes("email-already-in-use")) {

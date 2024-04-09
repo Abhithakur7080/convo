@@ -27,7 +27,6 @@ const Input2 = () => {
   const handleSubmit = async (e) => {
     let url = "";
     if (image) {
-      console.log("object");
       url = await storage.uploadFile(`users/${user.uid}/${image.name}`, image);
       setImage(url);
     }

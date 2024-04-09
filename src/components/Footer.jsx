@@ -5,20 +5,19 @@ import { FaGear, FaCircleQuestion } from "react-icons/fa6";
 import { MdSupportAgent } from "react-icons/md";
 import { NavLink } from "react-router-dom";
 import { useAuthContext } from "../config/AuthContext";
+import { useDispatch } from 'react-redux'
+import { clearChatId } from "../redux/chatSlice";
 
 const Footer = () => {
   const user = useAuthContext();
+  const dispatch = useDispatch()
   return (
     <div className="footerContainer">
       <div className="footerWrapper">
-        <NavLink className={"btn"} style={navStyle} to={"/"}>
+        <NavLink className={"btn"} style={navStyle} to={"/"} onClick={dispatch(clearChatId())}>
           <IoHome /> <span>Home</span>
         </NavLink>
-        {user ? (
-          <NavLink className={"btn"} style={navStyle} to={"/profile"}>
-            <FaUser /> <span>Profile</span>
-          </NavLink>
-        ) : (
+        {!user && (
           <>
           <NavLink className={"btn"} style={navStyle} to={"/login"}>
             <FaUserLock /> <span>Login</span>

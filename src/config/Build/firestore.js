@@ -12,6 +12,7 @@ import {
   doc,
 } from "firebase/firestore";
 import { firestoreDB } from "../firebase";
+import { useEffect, useState } from "react";
 
 export const useFirestore = () => {
   const addDataToFirestore = (collectionName, data) => {
@@ -67,55 +68,36 @@ export const useFirestore = () => {
   //       .catch((error) => reject(error));
   //   });
   // };
-  const getADocsFromFirestore = (collectionName, reference, callback) => {
-    const docRef = doc(firestoreDB, collectionName, reference);
-
-    const unsubscribe = onSnapshot(
-      docRef,
-      (docSnapshot) => {
-        if (docSnapshot.exists()) {
-          callback(docSnapshot.data());
-        } else {
-          callback(null);
-        }
-      },
-      (error) => {
-        console.error("Error fetching document:", error);
-      }
-    );
-    return unsubscribe;
+  const getADocsFromFirestore = async (collectionName, reference) => {
+    const docSnap = await getDoc(doc(firestoreDB, collectionName, reference));
+    if (docSnap.exists()) {
+      return docSnap.data();
+    } else {
+      // return "Document doesn't exist!";
+      return null;
+    }
   };
 
-  const getMultipleDocsFromFirestore = (
-    collectionName,
-    key,
-    value,
-    callback
-  ) => {
-    const q = query(
-      collection(firestoreDB, collectionName),
-      where(key, "==", value)
+  const getMultipleDocsFromFirestore = async (collectionName, key, value) => {
+    let data = [];
+    const querySnapshot = await getDocs(
+      query(collection(firestoreDB, collectionName), where(key, "==", value))
     );
-    const unsubscribe = onSnapshot(q, (querySnapshot) => {
-      const data = [];
-      querySnapshot.forEach((doc) => {
-        data.push(doc.data());
-      });
-      callback(data);
+    querySnapshot.forEach((doc) => {
+      data.push(doc.data());
     });
-    return unsubscribe;
+    return data;
   };
-
-  const getAllDocsFromFirestore = (collectionName, callback) => {
-    const q = collection(firestoreDB, collectionName);
-    const unsubscribe = onSnapshot(q, (querySnapshot) => {
-      const data = [];
-      querySnapshot.forEach((doc) => {
-        data.push(doc.data());
-      });
-      callback(data);
+  
+  const getAllDocsFromFirestore = async (collectionName) => {
+    let data = [];
+    const querySnapshot = await getDocs(
+      query(collection(firestoreDB, collectionName))
+    );
+    querySnapshot.forEach((doc) => {
+      data.push(doc.data());
     });
-    return unsubscribe;
+    return data;
   };
 
   return {

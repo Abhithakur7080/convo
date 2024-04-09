@@ -1,13 +1,10 @@
 import React, { useState } from "react";
 import Input from "../components/form/Input";
+import logo from "../assets/logo.png";
 import Layout from "../components/Layout";
 import { Link } from "react-router-dom";
-import logo from "../assets/logo.png";
 import toast from "react-hot-toast";
 import { useAuth } from "../config/Build/authentication";
-import { useStorage } from "../config/Build/storage";
-import { useFirestore } from "../config/Build/firestore";
-import { useRealtimeDatabase } from "../config/Build/realtimedatabase";
 
 const Login = () => {
   const [userData, setUserData] = useState({
@@ -27,18 +24,21 @@ const Login = () => {
   };
   //firebase hooks
   const auth = useAuth();
-  const storage = useStorage();
-  const store = useFirestore();
-  const database = useRealtimeDatabase();
   const handleSubmit = (e) => {
     e.preventDefault();
+    if(!userData.email || !userData.password){
+      toast.error("please fill all required fields")
+    }
     let user;
     auth
       .loginUserWithEmailAndPassword(userData.email, userData.password)
       .then((data) => {
         user = data.user;
       })
-      .then((e) => clearInputdata(e))
+      .then(() => {
+        clearInputdata();
+        toast.success("your are now logged in")
+      })
       .catch((error) => {
         console.log(error.message);
         if (error.message && error.message.includes("invalid-")) {

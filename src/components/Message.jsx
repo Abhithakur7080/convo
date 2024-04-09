@@ -1,5 +1,4 @@
-import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import React from "react";
 import { useAuthContext } from "../config/AuthContext";
 
 const Message = ({ message }) => {
@@ -8,7 +7,7 @@ const Message = ({ message }) => {
     <div className={`message ${message.sender === user.uid ? "owner" : ""}`}>
       <div className="messageInfo">
         {message.userImg && <img src={message.userImg} alt="userImage" />}
-        <span>Just now</span>
+        <span>{message?.time}</span>
       </div>
       <div className="messageContent">
         {message?.text!=="" && <p>{message.text}</p>}

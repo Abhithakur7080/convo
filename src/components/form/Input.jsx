@@ -9,6 +9,8 @@ const Input = ({
   value = "",
   onChange = () => {},
   errors = [],
+  Varient = "input",
+  disabled = false,
 }) => {
   const [isFocused, setIsFocused] = useState(false);
   const [passwordType, setPasswordType] = useState(type);
@@ -23,7 +25,9 @@ const Input = ({
   };
 
   const togglePassword = () => {
-    setPasswordType((prevType) => (prevType === "password" ? "text" : "password"));
+    setPasswordType((prevType) =>
+      prevType === "password" ? "text" : "password"
+    );
   };
 
   useEffect(() => {
@@ -38,34 +42,27 @@ const Input = ({
     <>
       <div
         className={`input-container ${error ? "error" : ""}`}
+        style={disabled ? { cursor: "not-allowed" } : undefined}
       >
-        <label
-          className={isFocused || value ? "active" : ""}
-          htmlFor={id}
-        >
+        <label className={isFocused || value ? "active" : ""} htmlFor={id}>
           {`Enter your ${label}`}
         </label>
-        <input
-          className={`pl-2 ${type === "password" ? "password" : ""}`}
+        <Varient
+          className={`pl-2 inputbox ${type === "password" ? "password" : ""}`}
           type={type === "password" ? passwordType : type}
           id={id}
           title={`Enter your ${label}`}
           name={name}
+          value={value}
           onFocus={handleFocus}
           onBlur={handleBlur}
           onChange={onChange}
           autoComplete="off"
+          disabled={disabled}
         />
         {label.includes("password") && (
-          <p
-            className="toggle-password"
-            onClick={togglePassword}
-          >
-            {passwordType === "password" ? (
-              <FaEye/>
-            ) : (
-              <FaEyeSlash/>
-            )}
+          <p className="toggle-password" onClick={togglePassword}>
+            {passwordType === "password" ? <FaEye /> : <FaEyeSlash />}
           </p>
         )}
       </div>

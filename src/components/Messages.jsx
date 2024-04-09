@@ -2,30 +2,25 @@ import React, { useEffect, useState, useRef } from "react";
 import Message from "./Message";
 import { useSelector } from "react-redux";
 import { chatSelector } from "../redux/chatSlice";
-import { useFirestore } from "../config/Build/firestore";
+import { firestoreDB } from "../config/firebase";
+import { doc, onSnapshot } from "firebase/firestore";
 
 const Messages = () => {
   const { chatId } = useSelector(chatSelector);
   const [messages, setMessages] = useState([]);
-  const store = useFirestore();
   const lastMessageRef = useRef(null);
 
   useEffect(() => {
-    const fetchMessages = async () => {
-      try {
-        if (!chatId) return;
-        const chatData = await store.getADocsFromFirestore("chats", chatId);
-        if (chatData && chatData.messages) {
-          setMessages(chatData.messages);
-        } else {
-          setMessages([]);
-        }
-      } catch (error) {
-        console.error("Error fetching chat data:", error);
+    const fetchMessages = onSnapshot(
+      doc(firestoreDB, "chats", chatId),
+      (doc) => {
+        doc.exists() && setMessages(doc.data().messages);
       }
+    );
+    return () => {
+      fetchMessages();
     };
-    fetchMessages();
-  }, [chatId, store]);
+  }, [chatId]);
 
   useEffect(() => {
     if (lastMessageRef.current) {

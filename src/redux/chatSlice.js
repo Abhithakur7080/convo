@@ -28,7 +28,7 @@ export const sentMessage = createAsyncThunk(
 
 export const createChatSession = createAsyncThunk(
   "chat/createChatSession",
-  async ({ userId, selectedUserId }, { rejectWithValue, dispatch }) => {
+  async ({ userId, selectedUserId }, { rejectWithValue }) => {
     try {
       const store = useFirestore();
       const user = await store.getADocsFromFirestore("users", userId);
@@ -80,7 +80,11 @@ const chatSlice = createSlice({
     chatId: null,
     selectedUser: {},
   },
-  reducers: {},
+  reducers: {
+    clearChatId: (state, action) => {
+      state.chatId = null
+    }
+  },
   extraReducers: (builder) => {
     builder
       .addCase(createChatSession.pending, (state) => {
@@ -99,4 +103,5 @@ const chatSlice = createSlice({
 
 // Export your slice and actions
 export const chatReducer = chatSlice.reducer;
+export const { clearChatId } = chatSlice.actions;
 export const chatSelector = (state) => state.chatReducer;
