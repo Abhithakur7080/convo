@@ -1,6 +1,10 @@
 <h1 align="center" style="font-size: 36px;"><img src="https://github.com/Abhithakur7080/convo/assets/119639453/7c1fda02-5125-479f-bc91-4b5b457eafde" width=30/> CONVO</h1>
 
-Welcome to our chat application named `convo`. This project provides users with a seamless chatting experience, featuring real-time messaging, authentication, and various other functionalities.
+# Welcome to convo
+This project provides users with a seamless chatting experience, featuring real-time messaging, authentication, and various other functionalities.
+
+## Hosted Link
+[explore](https://convo-live.netlify.app) 
 
 ## Features
 
