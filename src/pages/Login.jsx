@@ -28,6 +28,7 @@ const Login = () => {
     e.preventDefault();
     if(!userData.email || !userData.password){
       toast.error("please fill all required fields")
+      return;
     }
     let user;
     auth

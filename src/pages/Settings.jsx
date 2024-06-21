@@ -1,12 +1,10 @@
 import React from "react";
 import Layout from "../components/Layout";
-import ProtectedRoute from "../routes.jsx/Proctected.route";
 import { useAuthContext } from "../config/AuthContext";
 
 const Settings = () => {
   const user = useAuthContext();
   return (
-    <ProtectedRoute>
       <Layout title={"Convo - Settings"}>
         <div className="settings-container">
           <h2>Settings</h2>
@@ -77,7 +75,6 @@ const Settings = () => {
           </div>
         </div>
       </Layout>
-    </ProtectedRoute>
   );
 };
 

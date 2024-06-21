@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import Layout from "../components/Layout";
-import ProtectedRoute from "../routes.jsx/Proctected.route";
 import Input from "../components/form/Input";
 import logo from "../assets/logo.png";
 import toast from "react-hot-toast";
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from "react-router-dom";
 import { useAuthContext } from "../config/AuthContext";
 import { useRealtimeDatabase } from "../config/Build/realtimedatabase";
 import { useFirestore } from "../config/Build/firestore";
@@ -18,7 +17,7 @@ const Contactus = () => {
     message: "",
   });
   const database = useRealtimeDatabase();
-  const store = useFirestore()
+  const store = useFirestore();
   const navigate = useNavigate();
   const data = (e) => {
     let name = e.target.name;
@@ -39,8 +38,8 @@ const Contactus = () => {
   }, [user]);
   const handleSubmit = (e) => {
     e.preventDefault();
-    if(!userData.subject || !userData.message){
-      toast.error("please fill all required fields.")
+    if (!userData.subject || !userData.message) {
+      toast.error("please fill all required fields.");
       return;
     }
     store
@@ -59,9 +58,9 @@ const Contactus = () => {
             message: userData.message,
           })
           .then(() => {
-            toast.success("your message have been sent successfully")
+            toast.success("your message have been sent successfully");
             clearInputdata();
-            navigate('/')
+            navigate("/");
           })
           .catch((error) => {
             console.log(error);
@@ -69,56 +68,54 @@ const Contactus = () => {
       });
   };
   return (
-    <ProtectedRoute>
-      <Layout title={"Convo - Contact"}>
-        <div className="formContainer">
-          <div className="formWrapper scale-up-center">
-            <h1>
-              <img src={logo} width={35} height={35} /> Convo <span>live</span>
-            </h1>
-            <h4 className="title">Contact us</h4>
-            <div className="inputForm">
-              <form onSubmit={handleSubmit}>
-                <Input
-                  type="text"
-                  label="full name"
-                  id="displayName"
-                  name="displayName"
-                  value={displayName}
-                  disabled={true}
-                />
-                <Input
-                  type="email"
-                  label="Email address"
-                  id="email"
-                  name="email"
-                  value={email}
-                  disabled={true}
-                />
-                <Input
-                  type="text"
-                  label="subject"
-                  id="subject"
-                  name="subject"
-                  value={userData.subject}
-                  onChange={data}
-                />
-                <Input
-                  Varient="textarea"
-                  type="text"
-                  label="message"
-                  id="message"
-                  name="message"
-                  value={userData.message}
-                  onChange={data}
-                />
-                <button type="submit">Send</button>
-              </form>
-            </div>
+    <Layout title={"Convo - Contact"}>
+      <div className="formContainer">
+        <div className="formWrapper scale-up-center">
+          <h1>
+            <img src={logo} width={35} height={35} /> Convo <span>live</span>
+          </h1>
+          <h4 className="title">Contact us</h4>
+          <div className="inputForm">
+            <form onSubmit={handleSubmit}>
+              <Input
+                type="text"
+                label="full name"
+                id="displayName"
+                name="displayName"
+                value={displayName}
+                disabled={true}
+              />
+              <Input
+                type="email"
+                label="Email address"
+                id="email"
+                name="email"
+                value={email}
+                disabled={true}
+              />
+              <Input
+                type="text"
+                label="subject"
+                id="subject"
+                name="subject"
+                value={userData.subject}
+                onChange={data}
+              />
+              <Input
+                Varient="textarea"
+                type="text"
+                label="message"
+                id="message"
+                name="message"
+                value={userData.message}
+                onChange={data}
+              />
+              <button type="submit">Send</button>
+            </form>
           </div>
         </div>
-      </Layout>
-    </ProtectedRoute>
+      </div>
+    </Layout>
   );
 };
 
